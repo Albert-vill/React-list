@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import List from './component/List';
 
 function App() {
+  const [appState, setAppState] = useState("");
+
+  useEffect(() => {
+    const url= 'https://api.github.com/users/AlbertVC/repos';
+    fetch(url)
+      .then((res) => res.json())
+      .then((repos) =>{
+        setAppState({repos:repos});
+      });
+  }, [setAppState]);
+
+  if(!appState.repos || appState.repos.length === 0) return <p>no repositories found</p>
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <h1>
+          My list of repositories
+        </h1>
+      </div>
+      <div className="repo-container">        
+       <List repos={appState.repos}/>;
+      </div>
     </div>
   );
 }
