@@ -9,8 +9,9 @@ const List = (repositorios) => {
             {repos.map((repo) => {
                 return(
                     <li key={repo.id} className='list'>
-                        <span className='repo-text'>{repo.name}</span>
+                        <span className='repo-name'>{repo.name}</span>
                         <span className='repo-description'>{repo.description}</span>
+                        <span className='repo-id'>{repo.id}</span>
                     </li>
                 );
             })}

@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import List from './component/List';
+import Search from './component/Search';
 
 function App() {
   const [appState, setAppState] = useState("");
 
-  useEffect(() => {
-    const url= 'https://api.github.com/users/AlbertVC/repos';
+  useEffect((id) => {
+    const url= `https://swapi.co/api/people?search=${id}`;
     fetch(url)
       .then((res) => res.json())
       .then((repos) =>{
@@ -14,12 +15,12 @@ function App() {
       });
   }, [setAppState]);
 
-  if(!appState.repos || appState.repos.length === 0) return <p>no repositories found</p>
+  if(!appState.repos || appState.repos.length === 0) return <p>no person found</p>
   return (
     <div className="App">
       <div className="container">
         <h1>
-          My list of repositories
+          Character information
         </h1>
       </div>
       <div className="repo-container">        
